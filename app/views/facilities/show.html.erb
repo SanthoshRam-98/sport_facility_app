@@ -1,0 +1,32 @@
+<h1><%= @facility.name %></h1>
+<p><%= @facility.description %></p>
+<p>Location: <%= @facility.location %></p>
+
+<h3>Book This Facility</h3>
+<ul>
+  <% @bookings.each_with_index do |booking, index| %>
+    <li>
+      Booked from <%= booking.booking_time.strftime("%H:%M") %> to <%= (booking.booking_time + (booking.duration || 0).hours).strftime("%H:%M") %>
+      
+      <% if index < @bookings.size - 1 %>
+        <% next_booking = @bookings[index + 1] %>
+        <% if next_booking.booking_time > (booking.booking_time + (booking.duration || 0).hours) %>
+          <p>Available from <%= (booking.booking_time + (booking.duration || 0).hours).strftime("%H:%M") %> to <%= next_booking.booking_time.strftime("%H:%M") %></p>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= form_with model: Booking.new, url: bookings_path, local: true do |f| %>
+  <%= f.hidden_field :facility_id, value: @facility.id %>
+  <div>
+    <%= f.label :booking_time, "Booking Time" %>
+    <%= f.datetime_select :booking_time %>
+  </div>
+  <div>
+    <%= f.label :duration, "Duration (in hours)" %>
+    <%= f.number_field :duration, value: 1 %> <!-- Added a default value of 1 hour -->
+  </div>
+  <%= f.submit "Book Now" %>
+<% end %>

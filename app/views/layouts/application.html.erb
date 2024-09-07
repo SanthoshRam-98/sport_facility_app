@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SportsFacilityBookingSystem</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </head>
+
+  <body>
+  <% if user_signed_in? %>
+  <p>Welcome, <%= current_user.email %>!</p>
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+  <% else %>
+  <% end %>
+    <%= yield %>
+  </body>
+</html>

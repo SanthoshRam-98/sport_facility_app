@@ -1,0 +1,23 @@
+<h1>Available Sports Facilities</h1>
+
+<%= form_with url: facilities_path, method: :get, local: true do %>
+  <div>
+    <%= label_tag :sports_name, "Filter by Sports Name" %>
+    <%= text_field_tag :sports_name, params[:sports_name] %>
+  </div>
+  <div>
+    <%= label_tag :pincode, "Filter by Pincode" %>
+    <%= text_field_tag :pincode, params[:pincode] %>
+  </div>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<ul>
+  <% @facilities.each do |facility| %>
+    <li>
+      <h2><%= link_to facility.name, facility_path(facility) %></h2>
+      <p><%= facility.description %></p>
+      <p>Location: <%= facility.location %> (Pincode: <%= facility.pincode %>)</p>
+    </li>
+  <% end %>
+</ul>
