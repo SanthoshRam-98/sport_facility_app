@@ -75,5 +75,6 @@ gem 'dotenv-rails', groups: [:development, :test, :production]
 
 gem 'pg', '~> 1.2'
 
-gem 'kamal'
+#gem 'kamal'
 
+#gem 'dotenv-rails'
